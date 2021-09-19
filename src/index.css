@@ -1,13 +1,27 @@
+@import "tachyons";
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to right, #115ba8, #e20eb2);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button {
+  cursor: pointer;
+  border-width: 0;
+}
+
+.bg-logo{
+  background: linear-gradient(to right, #115ba8, #e20eb2);
+}
+
+.bg-form{
+  background-color:rgba(255, 255, 255,0.3);
+  background-image:
+  radial-gradient(midnightblue 9px, transparent 10px),
+  repeating-radial-gradient(midnightblue 0, midnightblue 4px, transparent 5px, transparent 20px, midnightblue 21px, midnightblue 25px, transparent 26px, transparent 50px);
+  background-size: 30px 30px, 90px 90px;
+  background-position: 0 0;
 }
