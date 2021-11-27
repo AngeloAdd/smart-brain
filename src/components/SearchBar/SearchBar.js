@@ -2,6 +2,7 @@ import React from "react";
 
 
 const SearchBar = ( { input, clearInputBar, onInputChange, onButtonSubmit } ) => {
+    
     return (
         <div  className="flex flex-column items-center justify-center">
             <p className="w-50 f5 tc mt0 mb2 white">
