@@ -10,7 +10,7 @@ const Image = ({ imageUrl, boxes, clearImage, clearInputBar }) => {
                 {
                     imageUrl !== '' &&
                     <button onClick={() => {clearImage(); clearInputBar()}} className="button-reset absolute bg-transparent btn-clear">
-                        <i class="fas fa-times-circle f3 dark-blue">
+                        <i className="fas fa-times-circle f3 dark-blue">
                         </i>
                     </button>
                 }
