@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/Navbar/Navbar.js'
 import SearchBar from './components/SearchBar/SearchBar.js'
 import Image from './components/Image/Image.js'
@@ -6,7 +6,6 @@ import Rank from './components/Rank/Rank.js'
 import Particles from 'react-tsparticles'
 import particlesOption from './particles.json'
 import SignIn from './components/SignIn/SignIn'
-import React from 'react'
 import Register from './components/Register/Register'
 import clarifai from './var/clarifaiApi'
 import Profile from './components/Profile/Profile.js'
@@ -124,11 +123,11 @@ const App = () => {
             />
             <Navbar isSignedIn={isSignedIn} onRouteChange={onRouteChange} id={user.id} />
             { route === '/'
-                ? <React.Fragment>
+                ? <>
                     <Rank user={user}/>
                     <SearchBar input={input} clearInputBar={clearInputBar} onInputChange={onInputChange} onButtonSubmit={onButtonSubmit}/>
                     <Image clearInputBar={clearInputBar} clearImage={clearImage} boxes={boxes} imageUrl={imageUrl}/>
-                </React.Fragment>
+                </>
                 : ( route === 'signin'
                     ? <SignIn onRouteChange={onRouteChange} loadUserData={loadUserData} />
                     : (route === 'profile/' + user.id 

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 import './Image.css'
 import FaceBox from '../FaceBox/FaceBox.js'
-
 
 const Image = ({ imageUrl, boxes, clearImage, clearInputBar }) => {
     return (
@@ -25,6 +25,13 @@ const Image = ({ imageUrl, boxes, clearImage, clearInputBar }) => {
             </div>
         </div>
     )
+}
+
+Image.propTypes = {
+    imageUrl: PropTypes.string,
+    boxes: PropTypes.array,
+    clearImage: PropTypes.func.isRequired,
+    clearInputBar: PropTypes.func.isRequired,
 }
 
 export default Image

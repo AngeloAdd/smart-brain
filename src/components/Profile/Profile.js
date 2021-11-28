@@ -1,4 +1,6 @@
-import React, {useEffect} from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 
 const Profile = ({ id, loadUserData, onRouteChange, user }) => {
     useEffect( () => {
@@ -41,6 +43,13 @@ const Profile = ({ id, loadUserData, onRouteChange, user }) => {
             </p>
         </div>
     )
+}
+
+Profile.propTypes = {
+    id: PropTypes.string, 
+    loadUserData: PropTypes.func.isRequired,
+    onRouteChange:PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired, 
 }
 
 export default Profile

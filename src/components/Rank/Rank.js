@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const Rank = ({user}) => {
     return (
@@ -11,6 +12,10 @@ const Rank = ({user}) => {
             </p>
         </div>
     )
+}
+
+Rank.propTypes = {
+    user: PropTypes.object.isRequired,
 }
 
 export default Rank
