@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const SignIn = ({ onRouteChange, loadUserData }) => {
 
@@ -14,8 +15,8 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
             },
             body: JSON.stringify({
                 email,
-                password
-            })
+                password,
+            }),
         })
         .then( response => response.json())
         .then( data =>{
@@ -46,21 +47,21 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
         <article className="mw6 center br3 pa4 pa4-ns mv3 ba b--black-10 shadow-5">
             <div className="measure center">
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                <legend className="f2 center fw6 ph0 mh0">Sign In</legend>
-                <div className="mt3 ph4">
-                    <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                    <input onChange={onEmailChange} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" />
-                </div>
-                <div className="mv3 ph4">
-                    <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                    <input onChange={onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
-                {
-                    loginError
-                        ? <div className="fw5 mt2 red f5">{loginError}</div>
-                        : null
-                }    
+                    <legend className="f2 center fw6 ph0 mh0">Sign In</legend>
+                    <div className="mt3 ph4">
+                        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+                        <input onChange={onEmailChange} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" />
+                    </div>
+                    <div className="mv3 ph4">
+                        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                        <input onChange={onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
+                        {
+                            loginError
+                                ? <div className="fw5 mt2 red f5">{loginError}</div>
+                                : null
+                        }    
                     
-                </div>
+                    </div>
                 </fieldset>
                 <div className="w-100 flex justify-center items-center">
                     <button 
@@ -77,6 +78,11 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
             </div>
         </article>
     )
+}
+
+SignIn.propTypes = {
+    onRouteChange: PropTypes.func.isRequired,
+    loadUserData: PropTypes.func.isRequired,
 }
 
 export default SignIn
