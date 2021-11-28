@@ -19,6 +19,7 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
         })
         .then( response => response.json())
         .then( data =>{
+            console.log(data)
             if(data.id){
                 loadUserData({
                     id: data.id,
@@ -35,13 +36,9 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
         })
     }
 
-    const onEmailChange = (event) => {
-        setEmail(event.target.value)
-    }
+    const onEmailChange = (event) => setEmail(event.target.value)
 
-    const onPasswordChange = (event) => {
-        setPassword(event.target.value)
-    }
+    const onPasswordChange = (event) => setPassword(event.target.value)
 
     const onLoginError = (error) => setLoginError(error)
 
@@ -58,7 +55,7 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
                     <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                     <input onChange={onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
                 {
-                    loginError === 'login error'
+                    loginError
                         ? <div className="fw5 mt2 red f5">{loginError}</div>
                         : null
                 }    
