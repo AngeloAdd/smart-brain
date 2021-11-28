@@ -1,4 +1,3 @@
-import './App.css';
 import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar.js'
 import SearchBar from './components/SearchBar/SearchBar.js'
@@ -25,6 +24,7 @@ const App = () => {
     email:'',
     rank:0,
     created_at:'',
+    updated_at:'',
   })
 
   const loadUserData = (user) => {
@@ -34,6 +34,7 @@ const App = () => {
       obj.email = user.email
       obj.rank = user.rank
       obj.created_at = user.created_at
+      obj.updated_at = user.updated_at
       return obj
     })
   }
@@ -70,7 +71,8 @@ const App = () => {
           })  
           .then( resp => resp.json())
           .then( data => {
-            if(data.success === 'success'){
+            if(data.rank){
+              console.log(data)
               setUser({...user, rank: parseInt(data.rank)})
             }
           })
@@ -92,10 +94,24 @@ const App = () => {
   const onRouteChange = (route) => {
     if(route === 'signout'){
       setRoute('signin')
+      setUser({
+        id: 0,
+        username: '',
+        email:'',
+        rank:0,
+        created_at:'',
+        updated_at:'',
+      })
       setIsSignedIn(false)
       return 
     } else if( route === '/'){
-      setIsSignedIn(true)
+      if(user.id !== 0){
+        setIsSignedIn(true)
+      } else{
+        setRoute('signin')
+        setIsSignedIn(false)
+        return
+      }
     }
     setRoute(route)
   }
