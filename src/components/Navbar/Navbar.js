@@ -5,7 +5,7 @@ const Navbar = ( { onRouteChange, isSignedIn, id } ) => {
     return (
         <div className="flex justify-between pt4 ph4">
             
-            <Logo />
+            <Logo onRouteChange={onRouteChange} />
             <div className="m0">
 
                 { isSignedIn 

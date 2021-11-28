@@ -9,7 +9,7 @@ const Profile = ({ id, loadUserData, onRouteChange, user }) => {
             },
         })
         .then( response => response.json())
-        .then( data =>{
+        .then( data => {
             if(data.id){
                 loadUserData({
                     id: data.id,

@@ -21,13 +21,14 @@ const Register = ({ onRouteChange, loadUserData }) => {
         })
         .then( response => response.json())
         .then( data => {
-            if(data.success === 'success'){
+            if(data.id){
                 loadUserData({
                     id: data.id,
                     username: data.username,
                     email: data.email,
                     rank: data.rank,
                     created_at: data.created_at,
+                    updated_at: data.updated_at,
                 })
                 onRouteChange('/')
             } 
