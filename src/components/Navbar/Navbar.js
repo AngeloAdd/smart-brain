@@ -40,7 +40,7 @@ const Navbar = ( { onRouteChange, isSignedIn, id } ) => {
 Navbar.propTypes = {
     onRouteChange: PropTypes.func.isRequired,
     isSignedIn: PropTypes.bool.isRequired,
-    id: PropTypes.string,
+    id: PropTypes.number,
 }
 
 export default Navbar

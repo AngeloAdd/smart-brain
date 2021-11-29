@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const SignIn = ({ onRouteChange, loadUserData }) => {
@@ -36,6 +35,7 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
                 onLoginError(data)
             }
         })
+        .catch(e => console.log(e))
     }
 
     const onEmailChange = (event) => setEmail(event.target.value)
@@ -74,7 +74,7 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
                     </button>
                 </div>
                 <div className="lh-copy w-100 flex justify-center mt3">
-                    <button onClick={() => onRouteChange('register')} className="f6 link dim black db bg-transparent button-reset">Register</button>
+                    <button onClick={() => onRouteChange('register')} className="f6 link dim black db bg-transparent button-reset">Sign In</button>
                 </div>
             </div>
         </article>
