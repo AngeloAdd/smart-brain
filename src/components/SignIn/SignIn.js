@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const SignIn = ({ onRouteChange, loadUserData }) => {
+const SignIn = ({ smartBrainFetch, onRouteChange, loadUserData }) => {
 
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ loginError, setLoginError ] = useState('')
 
     const onSubmitSignIn = () => {
-        fetch('http://localhost:3000/signin', {
+        smartBrainFetch('user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,7 +20,6 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
         })
         .then( response => response.json())
         .then( data =>{
-            console.log(data)
             if(data.id){
                 loadUserData({
                     id: data.id,
@@ -82,6 +81,7 @@ const SignIn = ({ onRouteChange, loadUserData }) => {
 }
 
 SignIn.propTypes = {
+    smartBrainFetch: PropTypes.func.isRequired,
     onRouteChange: PropTypes.func.isRequired,
     loadUserData: PropTypes.func.isRequired,
 }

@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 
-const Profile = ({ id, loadUserData, onRouteChange, user }) => {
+const Profile = ({ id, smartBrainFetch, loadUserData, onRouteChange, user }) => {
     useEffect( () => {
-        fetch('http://localhost:3000/profile/' + id, {
+        smartBrainFetch('user/' + id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,6 +47,7 @@ const Profile = ({ id, loadUserData, onRouteChange, user }) => {
 
 Profile.propTypes = {
     id: PropTypes.string, 
+    smartBrainFetch: PropTypes.func.isRequired,
     loadUserData: PropTypes.func.isRequired,
     onRouteChange:PropTypes.func.isRequired,
     user: PropTypes.object.isRequired, 

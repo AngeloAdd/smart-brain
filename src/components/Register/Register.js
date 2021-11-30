@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-const Register = ({ onRouteChange, loadUserData }) => {
+const Register = ({ onRouteChange, smartBrainFetch, loadUserData }) => {
 
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
@@ -9,7 +9,7 @@ const Register = ({ onRouteChange, loadUserData }) => {
     const [ registerError, setRegisterError ] = useState('')
    
     const onSubmitRegister = () => {
-        fetch('http://localhost:3000/register', {
+        smartBrainFetch('user/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,8 +97,8 @@ const Register = ({ onRouteChange, loadUserData }) => {
 }
 
 Register.propTypes = {
-    user: PropTypes.object.isRequired,
     onRouteChange: PropTypes.func.isRequired,
+    smartBrainFetch: PropTypes.func.isRequired,
     loadUserData: PropTypes.func.isRequired,
 }
 

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import Navbar from './components/Navbar/Navbar.js'
-import SearchBar from './components/SearchBar/SearchBar.js'
-import Image from './components/Image/Image.js'
-import Rank from './components/Rank/Rank.js'
+import Navbar from './components/Navbar/Navbar'
+import SearchBar from './components/SearchBar/SearchBar'
+import Image from './components/Image/Image'
+import Rank from './components/Rank/Rank'
 import Particles from 'react-tsparticles'
 import particlesOption from './particles.json'
 import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
-import clarifai from './var/clarifaiApi'
-import Profile from './components/Profile/Profile.js'
+import Profile from './components/Profile/Profile'
+import fetchAbsolut from './utilities/fetchAbsolut'
 
 const App = () => {
     const [ input, setInput ] = useState('')
@@ -16,7 +16,7 @@ const App = () => {
     const [ boxes, setBoxes ] = useState([])
     const [ route, setRoute ] = useState('signin')
     const [ isSignedIn, setIsSignedIn ] = useState(false)
-    const [ user, setUser] = useState({
+    const [ user, setUser ] = useState({
         id: 0,
         username: '',
         email:'',
@@ -24,6 +24,29 @@ const App = () => {
         created_at:'',
         updated_at:'',
     })
+
+    const smartBrainFetch = fetchAbsolut('http://localhost:3000/')
+
+    const clearAppState = () => {
+        clearInputBar()
+
+        clearImage()
+
+        setBoxes([])
+        
+        setUser({
+            id: 0,
+            username: '',
+            email:'',
+            rank:0,
+            created_at:'',
+            updated_at:'',
+        })
+
+        setRoute('signin')
+            
+        setIsSignedIn(false)
+    }
 
     const loadUserData = (user) => {
         setUser(obj => {
@@ -54,61 +77,61 @@ const App = () => {
     }
 
     const onButtonSubmit = () => {
-        clarifai.models.predict('f76196b43bbd45c99b4f3cd8e8b40a8a', input, {video: false})
-      .then(setImageUrl(input))
-      .then(resp => {
-          if(resp) {
-              fetch('http://localhost:3000/image', {
-                  method: 'PUT',
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                      id: user.id,
-                  }),
-              })  
-          .then( resp => resp.json())
-          .then( data => {
-              if(data.rank){
-                  console.log(data)
-                  setUser({...user,
-                      rank: parseInt(data.rank)})
-              }
-          })
-          }
-          const coordinates = calculateCoordinates(resp)
-          setBoxes(coordinates)
-      })
-      .catch(e => console.log(e))
+        smartBrainFetch('image/show', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                input: input,
+            }),
+        })
+            .then(setImageUrl(input))
+            .then(resp => {
+                if(resp) {
+                    smartBrainFetch('user/update/rank', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: user.id,
+                        }),
+                    })  
+                    .then( resp => resp.json())
+                    .then( data => {
+                        if(data.rank){
+                            setUser({ ...user,
+                                rank: parseInt(data.rank) })
+                        }
+                    })
+                    .catch(e => console.log(e))
+                }
+
+                const coordinates = calculateCoordinates(resp)
+
+                setBoxes(coordinates)
+            })
+            .catch(e => console.log(e))
     }
 
-    const clearInputBar = () => {
-        setInput('')
-    }
+    const clearInputBar = () => setInput('')
 
-    const clearImage = () => {
-        setImageUrl('')
-    }
+    const clearImage = () => setImageUrl('')
 
     const onRouteChange = (route) => {
         if(route === 'signout'){
-            setRoute('signin')
-            setUser({
-                id: 0,
-                username: '',
-                email:'',
-                rank:0,
-                created_at:'',
-                updated_at:'',
-            })
-            setIsSignedIn(false)
+            clearAppState()
+
             return 
         } else if( route === '/'){
             if(user.id !== 0){
                 setIsSignedIn(true)
             } else{
                 setRoute('signin')
+
                 setIsSignedIn(false)
+
                 return
             }
         }
@@ -129,10 +152,10 @@ const App = () => {
                     <Image clearInputBar={clearInputBar} clearImage={clearImage} boxes={boxes} imageUrl={imageUrl}/>
                 </>
                 : ( route === 'signin'
-                    ? <SignIn onRouteChange={onRouteChange} loadUserData={loadUserData} />
+                    ? <SignIn smartBrainFetch={smartBrainFetch} onRouteChange={onRouteChange} loadUserData={loadUserData} />
                     : (route === 'profile/' + user.id 
-                        ? <Profile loadUserData={loadUserData} id={user.id} user={user} onRouteChange={onRouteChange}/>
-                        : <Register onRouteChange={onRouteChange} loadUserData={loadUserData}/>
+                        ? <Profile loadUserData={loadUserData} smartBrainFetch={smartBrainFetch} id={user.id} user={user} onRouteChange={onRouteChange}/>
+                        : <Register onRouteChange={onRouteChange} smartBrainFetch={smartBrainFetch} loadUserData={loadUserData}/>
                     )
                 )
             }
